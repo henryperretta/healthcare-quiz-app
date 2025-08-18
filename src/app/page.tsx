@@ -2,6 +2,8 @@
 
 import Link from 'next/link';
 
+// Version: 2024-08-18-v3 - Force cache refresh
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
