@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 
-// Version: 2024-08-18-v3 - Force cache refresh
+// Version: 2024-08-18-v4 - Fresh deployment after cache clear
 
 export default function Home() {
   return (
