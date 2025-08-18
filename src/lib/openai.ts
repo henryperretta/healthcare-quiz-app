@@ -78,7 +78,13 @@ Generate 2-3 educational MCQs based on this healthcare article. Focus on key fac
   }
 }
 
-export async function verifyMCQ(question: any) {
+export async function verifyMCQ(question: {
+  prompt: string;
+  choices: string[];
+  answer_index: number;
+  explanation: string;
+  source_quote: string;
+}) {
   try {
     const completion = await openai.chat.completions.create({
       model: "gpt-4",

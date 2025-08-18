@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { QuizQuestion, QuizState } from '@/types';
+import { QuizState } from '@/types';
 
 export default function QuizPage() {
   const [quizState, setQuizState] = useState<QuizState | null>(null);
@@ -9,7 +9,11 @@ export default function QuizPage() {
   const [error, setError] = useState<string | null>(null);
   const [selectedChoice, setSelectedChoice] = useState<string | null>(null);
   const [showFeedback, setShowFeedback] = useState(false);
-  const [feedbackData, setFeedbackData] = useState<any>(null);
+  const [feedbackData, setFeedbackData] = useState<{
+    correct: boolean;
+    explanation: string;
+    correct_choice: string;
+  } | null>(null);
 
   useEffect(() => {
     initializeQuiz();
@@ -258,7 +262,7 @@ export default function QuizPage() {
                 {currentQuestion.source_quote && (
                   <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
                     <h4 className="font-semibold text-blue-900 mb-2">Source Quote:</h4>
-                    <p className="text-blue-800 italic">"{currentQuestion.source_quote}"</p>
+                    <p className="text-blue-800 italic">&ldquo;{currentQuestion.source_quote}&rdquo;</p>
                   </div>
                 )}
               </div>

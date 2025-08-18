@@ -23,7 +23,7 @@ export async function extractArticleContent(url: string): Promise<ExtractedConte
     $('script, style, nav, footer, header, aside, .advertisement, .ads, .social-share, .comments').remove();
     
     // Extract title
-    let title = $('h1').first().text().trim() || 
+    const title = $('h1').first().text().trim() || 
                 $('title').text().trim() || 
                 $('meta[property="og:title"]').attr('content') || 
                 'Untitled Article';

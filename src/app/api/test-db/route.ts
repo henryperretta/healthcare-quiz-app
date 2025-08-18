@@ -4,22 +4,22 @@ import { supabaseAdmin } from '@/lib/supabase';
 export async function GET() {
   try {
     // Test database connection
-    const { data: articles, error: articlesError } = await supabaseAdmin
+    const { error: articlesError } = await supabaseAdmin
       .from('articles')
       .select('count')
       .limit(1);
       
-    const { data: questions, error: questionsError } = await supabaseAdmin
+    const { error: questionsError } = await supabaseAdmin
       .from('questions')
       .select('count')
       .limit(1);
       
-    const { data: choices, error: choicesError } = await supabaseAdmin
+    const { error: choicesError } = await supabaseAdmin
       .from('choices')
       .select('count')
       .limit(1);
       
-    const { data: sessions, error: sessionsError } = await supabaseAdmin
+    const { error: sessionsError } = await supabaseAdmin
       .from('quiz_sessions')
       .select('count')
       .limit(1);

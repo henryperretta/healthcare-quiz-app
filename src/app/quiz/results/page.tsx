@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect, useCallback, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
@@ -40,9 +40,9 @@ function ResultsPageContent() {
       setError('No session ID provided');
       setLoading(false);
     }
-  }, [sessionId]);
+  }, [sessionId, fetchResults]);
 
-  const fetchResults = async () => {
+  const fetchResults = useCallback(async () => {
     try {
       const response = await fetch('/api/finish', {
         method: 'POST',
@@ -62,7 +62,7 @@ function ResultsPageContent() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [sessionId]);
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
