@@ -14,11 +14,11 @@ interface ResponseRow {
     articles: {
       title: string;
       source: string;
-    };
-  };
+    }[];
+  }[];
   choices: {
     text: string;
-  };
+  }[];
 }
 
 export async function POST(request: NextRequest) {
@@ -90,12 +90,12 @@ export async function POST(request: NextRequest) {
       finished_at: session.finished_at,
       email: session.email,
       responses: responses?.map((r: ResponseRow) => ({
-        question: r.questions.prompt,
-        selected_answer: r.choices.text,
+        question: r.questions[0]?.prompt || '',
+        selected_answer: r.choices[0]?.text || '',
         is_correct: r.is_correct,
-        explanation: r.questions.explanation,
-        source: r.questions.source_span,
-        article_title: r.questions.articles.title
+        explanation: r.questions[0]?.explanation || '',
+        source: r.questions[0]?.source_span || '',
+        article_title: r.questions[0]?.articles[0]?.title || ''
       })) || []
     };
     
