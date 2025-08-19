@@ -102,12 +102,16 @@ export async function POST(request: NextRequest) {
     // Send email if email address was provided
     if (email && finalStats.email) {
       try {
+        console.log('Attempting to send email to:', finalStats.email);
+        console.log('RESEND_API_KEY exists:', !!process.env.RESEND_API_KEY);
         await sendQuizResults(finalStats);
-        console.log(`Quiz results email sent to ${finalStats.email}`);
+        console.log(`Quiz results email sent successfully to ${finalStats.email}`);
       } catch (emailError) {
         console.error('Failed to send quiz results email:', emailError);
         // Don't fail the API call if email fails - just log it
       }
+    } else {
+      console.log('No email sending - email param:', email, 'finalStats.email:', finalStats.email);
     }
     
     return NextResponse.json(finalStats);

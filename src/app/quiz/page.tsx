@@ -201,10 +201,12 @@ export default function QuizPage() {
               {/* Article Source */}
               <div className="mb-4 p-3 bg-blue-50 rounded-lg border-l-4 border-blue-400">
                 <p className="text-sm text-blue-700">
-                  <strong>Source:</strong> {currentQuestion.article_title}
+                  <strong>Source:</strong> {currentQuestion.article_title || 'Unknown Article'}
                 </p>
-                {currentQuestion.article_source && (
+                {currentQuestion.article_source ? (
                   <p className="text-xs text-blue-600 mt-1">from {currentQuestion.article_source}</p>
+                ) : (
+                  <p className="text-xs text-blue-600 mt-1">from Healthcare Article</p>
                 )}
               </div>
               
@@ -222,15 +224,15 @@ export default function QuizPage() {
                         : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
                     }`}
                   >
-                    <input
-                      type="radio"
-                      name="answer"
-                      value={choice.id}
-                      checked={selectedChoice === choice.id}
-                      onChange={(e) => setSelectedChoice(e.target.value)}
-                      className="sr-only"
-                    />
                     <div className="flex items-start">
+                      <input
+                        type="radio"
+                        name="answer"
+                        value={choice.id}
+                        checked={selectedChoice === choice.id}
+                        onChange={(e) => setSelectedChoice(e.target.value)}
+                        className="mt-1 mr-3"
+                      />
                       <span className="text-gray-900">{choice.text}</span>
                     </div>
                   </label>
