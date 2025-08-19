@@ -4,10 +4,11 @@ import { supabaseAdmin } from '@/lib/supabase';
 // POST /api/admin/questions/[id]/archive - Archive a question
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
     const { reason, archived_by } = await request.json();
+    const params = await context.params;
     const questionId = params.id;
 
     if (!questionId) {

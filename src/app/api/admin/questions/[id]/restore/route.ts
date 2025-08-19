@@ -4,9 +4,10 @@ import { supabaseAdmin } from '@/lib/supabase';
 // POST /api/admin/questions/[id]/restore - Restore an archived question
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
+    const params = await context.params;
     const questionId = params.id;
 
     if (!questionId) {
