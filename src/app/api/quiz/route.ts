@@ -3,6 +3,24 @@ import { supabaseAdmin } from '@/lib/supabase';
 
 const QUESTIONS_PER_QUIZ = parseInt(process.env.QUIZ_QUESTIONS_PER_SESSION || '10');
 
+interface QuizQuestion {
+  id: string;
+  prompt: string;
+  explanation: string;
+  source_span: string;
+  article_id: string;
+  articles: {
+    title: string;
+    source: string;
+  }[];
+  choices: {
+    id: string;
+    text: string;
+    is_correct: boolean;
+    order_index: number;
+  }[];
+}
+
 export async function GET() {
   try {
     // Get approved AND active questions with their choices
@@ -48,13 +66,13 @@ export async function GET() {
     console.log(`Quiz: Found ${questions.length} active questions, using ${questionsToUse} for quiz`);
     
     // Format for frontend
-    const formattedQuestions = selectedQuestions.map(q => ({
+    const formattedQuestions = selectedQuestions.map((q: QuizQuestion) => ({
       id: q.id,
       prompt: q.prompt,
       explanation: q.explanation,
       source_quote: q.source_span,
-      article_title: (q.articles as any)?.[0]?.title || '',
-      article_source: (q.articles as any)?.[0]?.source || '',
+      article_title: q.articles[0]?.title || '',
+      article_source: q.articles[0]?.source || '',
       choices: q.choices
         .sort((a, b) => a.order_index - b.order_index)
         .map(choice => ({
