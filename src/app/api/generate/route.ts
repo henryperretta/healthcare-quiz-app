@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
         }
         
         // Insert choices
-        const choices = mcq.choices.map((choiceText, index) => ({
+        const choices = mcq.choices.map((choiceText: string, index: number) => ({
           question_id: question.id,
           text: choiceText,
           is_correct: index === mcq.answer_index,
