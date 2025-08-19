@@ -173,7 +173,7 @@ export default function QuizPage() {
             <div className="flex justify-between items-center mb-4">
               <h1 className="text-2xl font-bold text-gray-900">Healthcare Quiz</h1>
               <div className="text-sm text-gray-600">
-                Question {quizState.current_question_index + 1} of {quizState.questions.length}
+                Quiz Question {quizState.current_question_index + 1} of {quizState.questions.length}
               </div>
             </div>
             
@@ -198,9 +198,16 @@ export default function QuizPage() {
                 {currentQuestion.prompt}
               </h2>
               
-              <div className="text-sm text-gray-500 mb-6">
-                <span className="font-medium">Source:</span> {currentQuestion.article_title}
+              {/* Article Source */}
+              <div className="mb-4 p-3 bg-blue-50 rounded-lg border-l-4 border-blue-400">
+                <p className="text-sm text-blue-700">
+                  <strong>Source:</strong> {currentQuestion.article_title}
+                </p>
+                {currentQuestion.article_source && (
+                  <p className="text-xs text-blue-600 mt-1">from {currentQuestion.article_source}</p>
+                )}
               </div>
+              
             </div>
 
             {!showFeedback ? (
@@ -224,9 +231,6 @@ export default function QuizPage() {
                       className="sr-only"
                     />
                     <div className="flex items-start">
-                      <span className="flex-shrink-0 w-6 h-6 border rounded-full mr-3 flex items-center justify-center text-sm font-medium">
-                        {String.fromCharCode(65 + index)}
-                      </span>
                       <span className="text-gray-900">{choice.text}</span>
                     </div>
                   </label>
