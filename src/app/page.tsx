@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 
-// Version: 2024-08-18-v4 - Fresh deployment after cache clear
+// Version: 2024-08-18-v5 - Deployment with all ESLint fixes
 
 export default function Home() {
   return (
