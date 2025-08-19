@@ -83,7 +83,7 @@ export async function POST(request: NextRequest) {
     // Send email if email address was provided
     if (email && finalStats.email) {
       try {
-        await sendQuizResults(finalStats as any);
+        await sendQuizResults(finalStats);
         console.log(`Quiz results email sent to ${finalStats.email}`);
       } catch (emailError) {
         console.error('Failed to send quiz results email:', emailError);

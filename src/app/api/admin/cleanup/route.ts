@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase';
 
 // POST /api/admin/cleanup - Clean up old archived questions
-export async function POST(request: NextRequest) {
+export async function POST() {
   try {
     // Use our database function to cleanup old archived questions
     const { data: deletedCount, error } = await supabaseAdmin

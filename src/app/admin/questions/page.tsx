@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { AdminQuestion } from '@/types';
 
@@ -35,9 +35,9 @@ export default function QuestionManagementPage() {
 
   useEffect(() => {
     fetchQuestions();
-  }, [state.statusFilter, state.currentPage]);
+  }, [fetchQuestions]);
 
-  const fetchQuestions = async () => {
+  const fetchQuestions = useCallback(async () => {
     setState(prev => ({ ...prev, loading: true, error: null }));
     
     try {
@@ -69,7 +69,7 @@ export default function QuestionManagementPage() {
         loading: false
       }));
     }
-  };
+  }, [state.statusFilter, state.currentPage]);
 
   const handleStatusFilterChange = (status: typeof state.statusFilter) => {
     setState(prev => ({

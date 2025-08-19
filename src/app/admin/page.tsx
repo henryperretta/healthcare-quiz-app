@@ -83,9 +83,9 @@ export default function AdminPage() {
       const result = await response.json();
       console.log('Ingestion result:', result);
       
-      const successCount = result.results.filter((r: any) => r.status === 'success').length;
-      const failedResults = result.results.filter((r: any) => r.status === 'failed');
-      const skippedResults = result.results.filter((r: any) => r.status === 'skipped');
+      const successCount = result.results.filter((r: { status: string }) => r.status === 'success').length;
+      const failedResults = result.results.filter((r: { status: string }) => r.status === 'failed');
+      const skippedResults = result.results.filter((r: { status: string }) => r.status === 'skipped');
       
       let message = `Results:\n• ${successCount} articles ingested successfully`;
       if (skippedResults.length > 0) {
@@ -93,7 +93,7 @@ export default function AdminPage() {
       }
       if (failedResults.length > 0) {
         message += `\n• ${failedResults.length} articles failed\n\nErrors:`;
-        failedResults.forEach((r: any) => {
+        failedResults.forEach((r: { url: string; message: string }) => {
           message += `\n${r.url}: ${r.message}`;
         });
       }

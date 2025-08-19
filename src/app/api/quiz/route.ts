@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase';
 
 const QUESTIONS_PER_QUIZ = parseInt(process.env.QUIZ_QUESTIONS_PER_SESSION || '10');
