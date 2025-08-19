@@ -53,8 +53,8 @@ export async function GET() {
       prompt: q.prompt,
       explanation: q.explanation,
       source_quote: q.source_span,
-      article_title: q.articles.title,
-      article_source: q.articles.source,
+      article_title: (q.articles as any)?.[0]?.title || '',
+      article_source: (q.articles as any)?.[0]?.source || '',
       choices: q.choices
         .sort((a, b) => a.order_index - b.order_index)
         .map(choice => ({
