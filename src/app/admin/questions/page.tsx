@@ -33,10 +33,6 @@ export default function QuestionManagementPage() {
     bulkOperation: false
   });
 
-  useEffect(() => {
-    fetchQuestions();
-  }, [fetchQuestions]);
-
   const fetchQuestions = useCallback(async () => {
     setState(prev => ({ ...prev, loading: true, error: null }));
     
@@ -70,6 +66,10 @@ export default function QuestionManagementPage() {
       }));
     }
   }, [state.statusFilter, state.currentPage]);
+
+  useEffect(() => {
+    fetchQuestions();
+  }, [fetchQuestions]);
 
   const handleStatusFilterChange = (status: typeof state.statusFilter) => {
     setState(prev => ({
