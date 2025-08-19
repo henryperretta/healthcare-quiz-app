@@ -31,7 +31,6 @@ function ResultsPageContent() {
   const [error, setError] = useState<string | null>(null);
   const [email, setEmail] = useState('');
   const [emailSubmitted, setEmailSubmitted] = useState(false);
-  const [showDetailedResults, setShowDetailedResults] = useState(true);
 
   const fetchResults = useCallback(async () => {
     try {
@@ -216,14 +215,8 @@ function ResultsPageContent() {
 
           {/* Detailed Results */}
           <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
-            <div className="flex items-center justify-between mb-6">
+            <div className="mb-6">
               <h2 className="text-2xl font-semibold text-gray-900">Question Review</h2>
-              <button
-                onClick={() => setShowDetailedResults(!showDetailedResults)}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
-              >
-                {showDetailedResults ? 'Hide Details' : 'Show Details'}
-              </button>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
@@ -255,47 +248,45 @@ function ResultsPageContent() {
               ))}
             </div>
 
-            {showDetailedResults && (
-              <div className="space-y-6">
-                {results.responses.map((response, index) => (
-                  <div key={index} className="border-b pb-6 last:border-b-0">
-                    <div className="flex items-start justify-between mb-3">
-                      <h4 className="font-semibold text-gray-900">Question {index + 1}</h4>
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                        response.is_correct 
-                          ? 'bg-green-100 text-green-800' 
-                          : 'bg-red-100 text-red-800'
-                      }`}>
-                        {response.is_correct ? 'Correct' : 'Incorrect'}
-                      </span>
-                    </div>
-                    
-                    <p className="text-gray-700 mb-3">{response.question}</p>
-                    
-                    <div className="bg-gray-50 p-3 rounded-lg mb-3">
-                      <p className="text-sm">
-                        <span className="font-medium">Your answer:</span> {response.selected_answer || 'No answer recorded'}
-                      </p>
-                    </div>
-                    
-                    {response.explanation && (
-                      <div className="bg-blue-50 p-3 rounded-lg mb-3">
-                        <p className="text-sm">
-                          <span className="font-medium">Explanation:</span> {response.explanation}
-                        </p>
-                      </div>
-                    )}
-                    
-                    {response.article_title && (
-                      <p className="text-xs text-gray-500">
-                        Source: {response.article_title}
-                      </p>
-                    )}
-                    
+            <div className="space-y-6">
+              {results.responses.map((response, index) => (
+                <div key={index} className="border-b pb-6 last:border-b-0">
+                  <div className="flex items-start justify-between mb-3">
+                    <h4 className="font-semibold text-gray-900">Question {index + 1}</h4>
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                      response.is_correct 
+                        ? 'bg-green-100 text-green-800' 
+                        : 'bg-red-100 text-red-800'
+                    }`}>
+                      {response.is_correct ? 'Correct' : 'Incorrect'}
+                    </span>
                   </div>
-                ))}
-              </div>
-            )}
+                  
+                  <p className="text-gray-700 mb-3">{response.question}</p>
+                  
+                  <div className="bg-gray-50 p-3 rounded-lg mb-3">
+                    <p className="text-sm">
+                      <span className="font-medium">Your answer:</span> {response.selected_answer || 'No answer recorded'}
+                    </p>
+                  </div>
+                  
+                  {response.explanation && (
+                    <div className="bg-blue-50 p-3 rounded-lg mb-3">
+                      <p className="text-sm">
+                        <span className="font-medium">Explanation:</span> {response.explanation}
+                      </p>
+                    </div>
+                  )}
+                  
+                  {response.article_title && (
+                    <p className="text-xs text-gray-500">
+                      Source: {response.article_title}
+                    </p>
+                  )}
+                  
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Actions */}
