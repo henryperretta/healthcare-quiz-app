@@ -96,6 +96,7 @@ export interface QuizQuestion {
   explanation: string;
   source_quote: string;
   article_title: string;
+  article_source: string;
 }
 
 export interface QuizState {

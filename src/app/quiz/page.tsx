@@ -213,7 +213,7 @@ export default function QuizPage() {
             {!showFeedback ? (
               /* Answer Options */
               <div className="space-y-3 mb-8">
-                {currentQuestion.choices.map((choice, index) => (
+                {currentQuestion.choices.map((choice) => (
                   <label 
                     key={choice.id}
                     className={`block p-4 border rounded-lg cursor-pointer transition-colors ${
