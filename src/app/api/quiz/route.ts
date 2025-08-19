@@ -66,21 +66,30 @@ export async function GET() {
     console.log(`Quiz: Found ${questions.length} active questions, using ${questionsToUse} for quiz`);
     
     // Format for frontend
-    const formattedQuestions = selectedQuestions.map((q: QuizQuestion) => ({
-      id: q.id,
-      prompt: q.prompt,
-      explanation: q.explanation,
-      source_quote: q.source_span,
-      article_title: q.articles[0]?.title || '',
-      article_source: q.articles[0]?.source || '',
-      choices: q.choices
-        .sort((a, b) => a.order_index - b.order_index)
-        .map(choice => ({
-          id: choice.id,
-          text: choice.text,
-          is_correct: choice.is_correct
-        }))
-    }));
+    const formattedQuestions = selectedQuestions.map((q: QuizQuestion) => {
+      console.log('Quiz API - Question data:', {
+        id: q.id,
+        articles: q.articles,
+        article_title: q.articles[0]?.title,
+        article_source: q.articles[0]?.source
+      });
+      
+      return {
+        id: q.id,
+        prompt: q.prompt,
+        explanation: q.explanation,
+        source_quote: q.source_span,
+        article_title: q.articles[0]?.title || '',
+        article_source: q.articles[0]?.source || '',
+        choices: q.choices
+          .sort((a, b) => a.order_index - b.order_index)
+          .map(choice => ({
+            id: choice.id,
+            text: choice.text,
+            is_correct: choice.is_correct
+          }))
+      };
+    });
     
     return NextResponse.json({
       questions: formattedQuestions,

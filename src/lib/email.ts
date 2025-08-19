@@ -23,8 +23,9 @@ interface QuizResults {
 
 export async function sendQuizResults(results: QuizResults): Promise<void> {
   if (!resend) {
-    console.warn('RESEND_API_KEY not configured - email sending disabled');
-    return;
+    const error = 'RESEND_API_KEY not configured - email sending disabled';
+    console.error(error);
+    throw new Error(error);
   }
 
   const scoreMessage = getScoreMessage(results.percentage);
