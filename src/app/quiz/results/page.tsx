@@ -31,7 +31,7 @@ function ResultsPageContent() {
   const [error, setError] = useState<string | null>(null);
   const [email, setEmail] = useState('');
   const [emailSubmitted, setEmailSubmitted] = useState(false);
-  const [showDetailedResults, setShowDetailedResults] = useState(false);
+  const [showDetailedResults, setShowDetailedResults] = useState(true);
 
   const fetchResults = useCallback(async () => {
     try {
@@ -220,7 +220,7 @@ function ResultsPageContent() {
               <h2 className="text-2xl font-semibold text-gray-900">Question Review</h2>
               <button
                 onClick={() => setShowDetailedResults(!showDetailedResults)}
-                className="bg-gray-200 hover:bg-gray-300 text-black px-4 py-2 rounded-lg font-medium transition-colors"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
               >
                 {showDetailedResults ? 'Hide Details' : 'Show Details'}
               </button>
