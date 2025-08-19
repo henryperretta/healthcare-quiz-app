@@ -97,6 +97,8 @@ export async function POST(request: NextRequest) {
       console.error('Failed to get detailed responses:', responsesError);
     }
     
+    console.log('Raw responses from database:', JSON.stringify(responses, null, 2));
+    
     const finalStats = {
       session_id,
       correct_answers: session.correct_answers,
@@ -110,7 +112,15 @@ export async function POST(request: NextRequest) {
         const choice = Array.isArray(r.choices) ? r.choices[0] : r.choices;
         const article = question ? (Array.isArray(question.articles) ? question.articles[0] : question.articles) : null;
         
-        return {
+        console.log('Processing response for finish API:', {
+          raw_question: r.questions,
+          raw_choice: r.choices,
+          processed_question: question,
+          processed_choice: choice,
+          processed_article: article
+        });
+        
+        const result = {
           question: question?.prompt || '',
           selected_answer: choice?.text || '',
           is_correct: r.is_correct,
@@ -118,8 +128,13 @@ export async function POST(request: NextRequest) {
           source: question?.source_span || '',
           article_title: article?.title || ''
         };
+        
+        console.log('Final response object:', result);
+        return result;
       }) || []
     };
+    
+    console.log('Final stats being returned:', finalStats);
     
     // Send email if email address was provided
     if (email && finalStats.email) {
