@@ -12,6 +12,9 @@ interface QuizQuestion {
   articles: {
     title: string;
     source: string;
+  } | {
+    title: string;
+    source: string;
   }[];
   choices: {
     id: string;
@@ -79,8 +82,8 @@ export async function GET() {
         prompt: q.prompt,
         explanation: q.explanation,
         source_quote: q.source_span,
-        article_title: q.articles[0]?.title || '',
-        article_source: q.articles[0]?.source || '',
+        article_title: Array.isArray(q.articles) ? q.articles[0]?.title || '' : q.articles?.title || '',
+        article_source: Array.isArray(q.articles) ? q.articles[0]?.source || '' : q.articles?.source || '',
         choices: q.choices
           .sort((a, b) => a.order_index - b.order_index)
           .map(choice => ({
