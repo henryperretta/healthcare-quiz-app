@@ -46,8 +46,6 @@ function ResultsPageContent() {
       }
       
       const data = await response.json();
-      console.log('Results data received:', data);
-      console.log('Responses array:', data.responses);
       setResults(data);
       
     } catch (err) {
@@ -222,7 +220,7 @@ function ResultsPageContent() {
               <h2 className="text-2xl font-semibold text-gray-900">Question Review</h2>
               <button
                 onClick={() => setShowDetailedResults(!showDetailedResults)}
-                className="text-blue-600 hover:text-blue-800 font-medium"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
               >
                 {showDetailedResults ? 'Hide Details' : 'Show Details'}
               </button>
@@ -294,10 +292,6 @@ function ResultsPageContent() {
                       </p>
                     )}
                     
-                    {/* Debug info */}
-                    <div className="mt-2 p-2 bg-yellow-50 border border-yellow-200 rounded text-xs">
-                      <p>{`Debug: selected_answer=${response.selected_answer || 'null'}, explanation=${response.explanation || 'null'}, article_title=${response.article_title || 'null'}`}</p>
-                    </div>
                   </div>
                 ))}
               </div>
