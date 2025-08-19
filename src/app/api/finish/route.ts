@@ -2,6 +2,25 @@ import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase';
 import { sendQuizResults } from '@/lib/email';
 
+interface ResponseRow {
+  question_id: string;
+  choice_id: string;
+  is_correct: boolean;
+  answered_at: string;
+  questions: {
+    prompt: string;
+    explanation: string;
+    source_span: string;
+    articles: {
+      title: string;
+      source: string;
+    };
+  };
+  choices: {
+    text: string;
+  };
+}
+
 export async function POST(request: NextRequest) {
   try {
     const { 
@@ -70,7 +89,7 @@ export async function POST(request: NextRequest) {
       started_at: session.started_at,
       finished_at: session.finished_at,
       email: session.email,
-      responses: responses?.map((r: any) => ({
+      responses: responses?.map((r: ResponseRow) => ({
         question: r.questions.prompt,
         selected_answer: r.choices.text,
         is_correct: r.is_correct,
