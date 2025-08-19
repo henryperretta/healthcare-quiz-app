@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
       started_at: session.started_at,
       finished_at: session.finished_at,
       email: session.email,
-      responses: responses?.map(r => ({
+      responses: responses?.map((r: any) => ({
         question: r.questions.prompt,
         selected_answer: r.choices.text,
         is_correct: r.is_correct,
