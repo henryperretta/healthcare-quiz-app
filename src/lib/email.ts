@@ -111,11 +111,11 @@ export async function sendQuizResults(results: QuizResults): Promise<void> {
 
   try {
     console.log('Attempting to send email with Resend...');
-    console.log('From:', process.env.FROM_EMAIL || 'noreply@quiz.example.com');
+    console.log('From:', process.env.FROM_EMAIL || 'onboarding@resend.dev');
     console.log('To:', results.email);
     
     const result = await resend.emails.send({
-      from: process.env.FROM_EMAIL || 'noreply@quiz.example.com',
+      from: process.env.FROM_EMAIL || 'onboarding@resend.dev',
       to: results.email,
       subject: `Your Healthcare Quiz Results - ${results.percentage}% Score`,
       html: emailHtml,
