@@ -8,7 +8,6 @@ interface Article {
   url: string;
   title: string;
   source: string;
-  status: string;
   created_at: string;
 }
 
@@ -268,12 +267,8 @@ export default function AdminPage() {
                       <div key={article.id} className="p-4 border border-gray-200 rounded-lg">
                         <div className="flex justify-between items-start mb-2">
                           <h4 className="font-medium text-gray-900 flex-1 mr-4">{article.title}</h4>
-                          <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                            article.status === 'processed' ? 'bg-green-100 text-green-800' :
-                            article.status === 'approved' ? 'bg-blue-100 text-blue-800' :
-                            'bg-yellow-100 text-yellow-800'
-                          }`}>
-                            {article.status}
+                          <span className="px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                            Ingested
                           </span>
                         </div>
                         <p className="text-sm text-gray-600 mb-2">Source: {article.source}</p>
