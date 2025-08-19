@@ -296,7 +296,7 @@ function ResultsPageContent() {
                     
                     {/* Debug info */}
                     <div className="mt-2 p-2 bg-yellow-50 border border-yellow-200 rounded text-xs">
-                      <p>Debug: selected_answer="{response.selected_answer}", explanation="{response.explanation}", article_title="{response.article_title}"</p>
+                      <p>Debug: selected_answer={response.selected_answer || 'null'}, explanation={response.explanation || 'null'}, article_title={response.article_title || 'null'}</p>
                     </div>
                   </div>
                 ))}
