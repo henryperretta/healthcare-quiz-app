@@ -46,6 +46,8 @@ function ResultsPageContent() {
       }
       
       const data = await response.json();
+      console.log('Results data received:', data);
+      console.log('Responses array:', data.responses);
       setResults(data);
       
     } catch (err) {
@@ -274,19 +276,28 @@ function ResultsPageContent() {
                     
                     <div className="bg-gray-50 p-3 rounded-lg mb-3">
                       <p className="text-sm">
-                        <span className="font-medium">Your answer:</span> {response.selected_answer}
+                        <span className="font-medium">Your answer:</span> {response.selected_answer || 'No answer recorded'}
                       </p>
                     </div>
                     
-                    <div className="bg-blue-50 p-3 rounded-lg mb-3">
-                      <p className="text-sm">
-                        <span className="font-medium">Explanation:</span> {response.explanation}
-                      </p>
-                    </div>
+                    {response.explanation && (
+                      <div className="bg-blue-50 p-3 rounded-lg mb-3">
+                        <p className="text-sm">
+                          <span className="font-medium">Explanation:</span> {response.explanation}
+                        </p>
+                      </div>
+                    )}
                     
-                    <p className="text-xs text-gray-500">
-                      Source: {response.article_title}
-                    </p>
+                    {response.article_title && (
+                      <p className="text-xs text-gray-500">
+                        Source: {response.article_title}
+                      </p>
+                    )}
+                    
+                    {/* Debug info */}
+                    <div className="mt-2 p-2 bg-yellow-50 border border-yellow-200 rounded text-xs">
+                      <p>Debug: selected_answer="{response.selected_answer}", explanation="{response.explanation}", article_title="{response.article_title}"</p>
+                    </div>
                   </div>
                 ))}
               </div>
