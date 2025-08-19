@@ -14,9 +14,25 @@ interface ResponseRow {
     articles: {
       title: string;
       source: string;
+    } | {
+      title: string;
+      source: string;
+    }[];
+  } | {
+    prompt: string;
+    explanation: string;
+    source_span: string;
+    articles: {
+      title: string;
+      source: string;
+    } | {
+      title: string;
+      source: string;
     }[];
   }[];
   choices: {
+    text: string;
+  } | {
     text: string;
   }[];
 }
@@ -89,14 +105,20 @@ export async function POST(request: NextRequest) {
       started_at: session.started_at,
       finished_at: session.finished_at,
       email: session.email,
-      responses: responses?.map((r: ResponseRow) => ({
-        question: r.questions[0]?.prompt || '',
-        selected_answer: r.choices[0]?.text || '',
-        is_correct: r.is_correct,
-        explanation: r.questions[0]?.explanation || '',
-        source: r.questions[0]?.source_span || '',
-        article_title: r.questions[0]?.articles[0]?.title || ''
-      })) || []
+      responses: responses?.map((r: ResponseRow) => {
+        const question = Array.isArray(r.questions) ? r.questions[0] : r.questions;
+        const choice = Array.isArray(r.choices) ? r.choices[0] : r.choices;
+        const article = question ? (Array.isArray(question.articles) ? question.articles[0] : question.articles) : null;
+        
+        return {
+          question: question?.prompt || '',
+          selected_answer: choice?.text || '',
+          is_correct: r.is_correct,
+          explanation: question?.explanation || '',
+          source: question?.source_span || '',
+          article_title: article?.title || ''
+        };
+      }) || []
     };
     
     // Send email if email address was provided
