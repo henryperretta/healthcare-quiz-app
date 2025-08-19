@@ -220,7 +220,7 @@ function ResultsPageContent() {
               <h2 className="text-2xl font-semibold text-gray-900">Question Review</h2>
               <button
                 onClick={() => setShowDetailedResults(!showDetailedResults)}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
+                className="bg-gray-200 hover:bg-gray-300 text-black px-4 py-2 rounded-lg font-medium transition-colors"
               >
                 {showDetailedResults ? 'Hide Details' : 'Show Details'}
               </button>
