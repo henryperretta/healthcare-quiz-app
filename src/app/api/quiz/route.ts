@@ -70,11 +70,14 @@ export async function GET() {
     
     // Format for frontend
     const formattedQuestions = selectedQuestions.map((q: QuizQuestion) => {
+      const articleTitle = Array.isArray(q.articles) ? q.articles[0]?.title || '' : q.articles?.title || '';
+      const articleSource = Array.isArray(q.articles) ? q.articles[0]?.source || '' : q.articles?.source || '';
+      
       console.log('Quiz API - Question data:', {
         id: q.id,
         articles: q.articles,
-        article_title: q.articles[0]?.title,
-        article_source: q.articles[0]?.source
+        article_title: articleTitle,
+        article_source: articleSource
       });
       
       return {
@@ -82,8 +85,8 @@ export async function GET() {
         prompt: q.prompt,
         explanation: q.explanation,
         source_quote: q.source_span,
-        article_title: Array.isArray(q.articles) ? q.articles[0]?.title || '' : q.articles?.title || '',
-        article_source: Array.isArray(q.articles) ? q.articles[0]?.source || '' : q.articles?.source || '',
+        article_title: articleTitle,
+        article_source: articleSource,
         choices: q.choices
           .sort((a, b) => a.order_index - b.order_index)
           .map(choice => ({
