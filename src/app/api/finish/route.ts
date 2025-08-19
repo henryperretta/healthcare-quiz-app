@@ -38,6 +38,7 @@ interface ResponseRow {
 }
 
 export async function POST(request: NextRequest) {
+  console.log('=== FINISH API CALLED ===');
   try {
     const { 
       session_id, 
@@ -46,6 +47,8 @@ export async function POST(request: NextRequest) {
       session_id: string;
       email?: string;
     } = await request.json();
+    
+    console.log('Finish API - Request params:', { session_id, email });
     
     if (!session_id) {
       return NextResponse.json(
