@@ -33,15 +33,6 @@ function ResultsPageContent() {
   const [emailSubmitted, setEmailSubmitted] = useState(false);
   const [showDetailedResults, setShowDetailedResults] = useState(false);
 
-  useEffect(() => {
-    if (sessionId) {
-      fetchResults();
-    } else {
-      setError('No session ID provided');
-      setLoading(false);
-    }
-  }, [sessionId, fetchResults]);
-
   const fetchResults = useCallback(async () => {
     try {
       const response = await fetch('/api/finish', {
@@ -63,6 +54,15 @@ function ResultsPageContent() {
       setLoading(false);
     }
   }, [sessionId]);
+
+  useEffect(() => {
+    if (sessionId) {
+      fetchResults();
+    } else {
+      setError('No session ID provided');
+      setLoading(false);
+    }
+  }, [sessionId, fetchResults]);
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
