@@ -18,6 +18,7 @@ interface QuizResults {
     explanation: string;
     source: string;
     article_title: string;
+    article_url: string;
   }>;
 }
 
@@ -83,7 +84,10 @@ export async function sendQuizResults(results: QuizResults): Promise<void> {
             </p>
             
             <p style="font-size: 12px; color: #6B7280; margin: 0;">
-              <strong>Source:</strong> ${response.article_title}
+              <strong>Source:</strong> ${response.article_url ? 
+                `<a href="${response.article_url}" target="_blank" rel="noopener noreferrer" style="color: #3B82F6; text-decoration: underline;">${response.article_title}</a>` : 
+                response.article_title
+              }
             </p>
           </div>
         `).join('')}
