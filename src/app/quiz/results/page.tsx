@@ -263,12 +263,12 @@ function ResultsPageContent() {
 
           {/* Actions */}
           <div className="flex justify-center">
-            <Link 
-              href="/" 
-              className="bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition-colors font-semibold"
+            <a 
+              href="https://fhir-engine.com/meta-crap/" 
+              className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-semibold"
             >
-              Return Home
-            </Link>
+              Return to C.R.A.P.
+            </a>
           </div>
         </div>
       </div>
