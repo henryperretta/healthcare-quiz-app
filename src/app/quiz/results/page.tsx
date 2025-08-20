@@ -19,6 +19,7 @@ interface QuizResults {
     explanation: string;
     source: string;
     article_title: string;
+    article_url: string;
   }>;
 }
 
@@ -252,7 +253,18 @@ function ResultsPageContent() {
                   
                   {response.article_title && (
                     <p className="text-xs text-gray-500">
-                      Source: {response.article_title}
+                      Source: {response.article_url ? (
+                        <a 
+                          href={response.article_url} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="text-blue-600 hover:text-blue-800 underline"
+                        >
+                          {response.article_title}
+                        </a>
+                      ) : (
+                        response.article_title
+                      )}
                     </p>
                   )}
                   

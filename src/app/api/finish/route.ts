@@ -14,9 +14,11 @@ interface ResponseRow {
     articles: {
       title: string;
       source: string;
+      url: string;
     } | {
       title: string;
       source: string;
+      url: string;
     }[];
   } | {
     prompt: string;
@@ -25,9 +27,11 @@ interface ResponseRow {
     articles: {
       title: string;
       source: string;
+      url: string;
     } | {
       title: string;
       source: string;
+      url: string;
     }[];
   }[];
   choices: {
@@ -83,7 +87,8 @@ export async function POST(request: NextRequest) {
           source_span,
           articles!inner (
             title,
-            source
+            source,
+            url
           )
         ),
         choices!inner (
@@ -116,7 +121,8 @@ export async function POST(request: NextRequest) {
           is_correct: r.is_correct,
           explanation: question?.explanation || '',
           source: question?.source_span || '',
-          article_title: article?.title || ''
+          article_title: article?.title || '',
+          article_url: article?.url || ''
         };
       }) || []
     };
