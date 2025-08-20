@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { AdminQuestion } from '@/types';
+import AdminAuth from '@/components/AdminAuth';
 
 interface QuestionManagementPageState {
   questions: AdminQuestion[];
@@ -212,8 +213,9 @@ export default function QuestionManagementPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-4 py-8">
+    <AdminAuth>
+      <div className="min-h-screen bg-gray-50">
+        <div className="container mx-auto px-4 py-8">
         <div className="max-w-7xl mx-auto">
           
           {/* Header */}
@@ -527,5 +529,6 @@ export default function QuestionManagementPage() {
         </div>
       )}
     </div>
+    </AdminAuth>
   );
 }

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import AdminAuth from '@/components/AdminAuth';
 
 interface Article {
   id: string;
@@ -138,7 +139,8 @@ export default function AdminPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <AdminAuth>
+      <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-6xl mx-auto">
           
@@ -356,5 +358,6 @@ export default function AdminPage() {
         </div>
       </div>
     </div>
+    </AdminAuth>
   );
 }
