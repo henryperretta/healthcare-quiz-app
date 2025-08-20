@@ -262,13 +262,7 @@ function ResultsPageContent() {
           </div>
 
           {/* Actions */}
-          <div className="flex justify-center space-x-4">
-            <Link 
-              href="/quiz" 
-              className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-semibold"
-            >
-              Take Another Quiz
-            </Link>
+          <div className="flex justify-center">
             <Link 
               href="/" 
               className="bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition-colors font-semibold"
