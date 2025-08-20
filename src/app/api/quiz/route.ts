@@ -12,9 +12,11 @@ interface QuizQuestion {
   articles: {
     title: string;
     source: string;
+    url: string;
   } | {
     title: string;
     source: string;
+    url: string;
   }[];
   choices: {
     id: string;
@@ -37,7 +39,8 @@ export async function GET() {
         article_id,
         articles!inner (
           title,
-          source
+          source,
+          url
         ),
         choices (
           id,
@@ -72,12 +75,14 @@ export async function GET() {
     const formattedQuestions = selectedQuestions.map((q: QuizQuestion) => {
       const articleTitle = Array.isArray(q.articles) ? q.articles[0]?.title || '' : q.articles?.title || '';
       const articleSource = Array.isArray(q.articles) ? q.articles[0]?.source || '' : q.articles?.source || '';
+      const articleUrl = Array.isArray(q.articles) ? q.articles[0]?.url || '' : q.articles?.url || '';
       
       console.log('Quiz API - Question data:', {
         id: q.id,
         articles: q.articles,
         article_title: articleTitle,
-        article_source: articleSource
+        article_source: articleSource,
+        article_url: articleUrl
       });
       
       return {
@@ -87,6 +92,7 @@ export async function GET() {
         source_quote: q.source_span,
         article_title: articleTitle,
         article_source: articleSource,
+        article_url: articleUrl,
         choices: q.choices
           .sort((a, b) => a.order_index - b.order_index)
           .map(choice => ({

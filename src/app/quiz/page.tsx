@@ -201,7 +201,18 @@ export default function QuizPage() {
               {/* Article Source */}
               <div className="mb-4 p-3 bg-blue-50 rounded-lg border-l-4 border-blue-400">
                 <p className="text-sm text-blue-700">
-                  <strong>Source:</strong> {currentQuestion.article_title || 'Unknown Article'}
+                  <strong>Source:</strong> {currentQuestion.article_url ? (
+                    <a 
+                      href={currentQuestion.article_url} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-blue-800 hover:text-blue-900 underline ml-1"
+                    >
+                      {currentQuestion.article_title || 'Unknown Article'}
+                    </a>
+                  ) : (
+                    <span className="ml-1">{currentQuestion.article_title || 'Unknown Article'}</span>
+                  )}
                 </p>
                 {currentQuestion.article_source ? (
                   <p className="text-xs text-blue-600 mt-1">from {currentQuestion.article_source}</p>

@@ -97,6 +97,7 @@ export interface QuizQuestion {
   source_quote: string;
   article_title: string;
   article_source: string;
+  article_url: string;
 }
 
 export interface QuizState {
