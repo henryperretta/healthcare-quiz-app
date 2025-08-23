@@ -201,7 +201,7 @@ function ResultsPageContent() {
                   <div className="mt-3 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
                     <p className="text-xs text-yellow-800">
                       <strong>Note:</strong> Some email providers (Office 365, iCloud) may block emails from our system. 
-                      If you do not receive your results, please check your spam/junk folder and add onboarding@resend.dev to your safe senders list.
+                      If you do not receive your results, please check your spam/junk folder and add quiz@fhir-engine.com to your safe senders list.
                       Gmail users typically receive emails without issues.
                     </p>
                   </div>

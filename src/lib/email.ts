@@ -120,9 +120,9 @@ export async function sendQuizResults(results: QuizResults): Promise<void> {
     
     // Try with minimal HTML and more conservative approach
     const result = await resend.emails.send({
-      from: 'C.R.A.P. Healthcare Quiz <onboarding@resend.dev>',
+      from: process.env.FROM_EMAIL || 'C.R.A.P. Healthcare Quiz <quiz@fhir-engine.com>',
       to: results.email,
-      subject: `Healthcare Quiz Results - ${results.percentage}% Score`,
+      subject: `Your C.R.A.P. Healthcare Quiz Results - ${results.percentage}% Score`,
       html: emailHtml,
       text: createPlainTextVersion(results),
       headers: {
@@ -131,7 +131,7 @@ export async function sendQuizResults(results: QuizResults): Promise<void> {
         'Importance': 'Normal',
         'X-Mailer': 'C.R.A.P. Healthcare Quiz System',
       },
-      replyTo: 'noreply@resend.dev'
+      replyTo: 'noreply@fhir-engine.com'
     });
 
     console.log('Resend API response:', result);
@@ -163,10 +163,10 @@ export async function sendQuizResults(results: QuizResults): Promise<void> {
     // Log specific guidance based on email domain
     const emailDomain = results.email.split('@')[1]?.toLowerCase();
     if (emailDomain?.includes('outlook') || emailDomain?.includes('office365') || emailDomain?.includes('hotmail')) {
-      console.error('RECOMMENDATION: Office 365 users should check their Junk/Spam folder and add onboarding@resend.dev to safe senders');
+      console.error('RECOMMENDATION: Office 365 users should check their Junk/Spam folder and add quiz@fhir-engine.com to safe senders');
     }
     if (emailDomain?.includes('icloud') || emailDomain?.includes('me.com')) {
-      console.error('RECOMMENDATION: iCloud users should check their Junk folder and add onboarding@resend.dev to contacts');
+      console.error('RECOMMENDATION: iCloud users should check their Junk folder and add quiz@fhir-engine.com to contacts');
     }
     
     throw error;
