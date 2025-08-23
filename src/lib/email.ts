@@ -115,26 +115,60 @@ export async function sendQuizResults(results: QuizResults): Promise<void> {
 
   try {
     console.log('Attempting to send email with Resend...');
-    console.log('From:', process.env.FROM_EMAIL || 'onboarding@resend.dev');
+    console.log('From:', process.env.FROM_EMAIL || 'C.R.A.P. Healthcare Quiz <onboarding@resend.dev>');
     console.log('To:', results.email);
     
+    // Try with minimal HTML and more conservative approach
     const result = await resend.emails.send({
-      from: process.env.FROM_EMAIL || 'C.R.A.P. Healthcare Quiz <onboarding@resend.dev>',
+      from: 'C.R.A.P. Healthcare Quiz <onboarding@resend.dev>',
       to: results.email,
-      subject: `Your C.R.A.P. Healthcare Quiz Results - ${results.percentage}% Score`,
+      subject: `Healthcare Quiz Results - ${results.percentage}% Score`,
       html: emailHtml,
       text: createPlainTextVersion(results),
       headers: {
-        'X-Entity-Ref-ID': `quiz-results-${results.session_id}`,
-        'List-Unsubscribe': '<mailto:unsubscribe@resend.dev>',
+        'X-Priority': '3',
+        'X-MSMail-Priority': 'Normal',
+        'Importance': 'Normal',
+        'X-Mailer': 'C.R.A.P. Healthcare Quiz System',
       },
+      replyTo: 'noreply@resend.dev'
     });
 
     console.log('Resend API response:', result);
+    
+    // Check if email was rejected or bounced
+    if (result.error) {
+      console.error('Email sending failed:', result.error);
+      throw new Error(`Email delivery failed: ${result.error.message}`);
+    }
+    
     console.log(`Quiz results email sent successfully to ${results.email}`);
+    console.log('Email ID:', result.data?.id);
+    
+    // Log email provider for debugging
+    const emailDomain = results.email.split('@')[1]?.toLowerCase();
+    console.log('Recipient email domain:', emailDomain);
+    
+    if (emailDomain?.includes('outlook') || emailDomain?.includes('office365') || emailDomain?.includes('hotmail')) {
+      console.log('WARNING: Office 365/Outlook domains may have delivery issues');
+    }
+    if (emailDomain?.includes('icloud') || emailDomain?.includes('me.com')) {
+      console.log('WARNING: iCloud domains may have delivery issues');
+    }
+    
   } catch (error) {
     console.error('Failed to send quiz results email:', error);
     console.error('Error details:', JSON.stringify(error, null, 2));
+    
+    // Log specific guidance based on email domain
+    const emailDomain = results.email.split('@')[1]?.toLowerCase();
+    if (emailDomain?.includes('outlook') || emailDomain?.includes('office365') || emailDomain?.includes('hotmail')) {
+      console.error('RECOMMENDATION: Office 365 users should check their Junk/Spam folder and add onboarding@resend.dev to safe senders');
+    }
+    if (emailDomain?.includes('icloud') || emailDomain?.includes('me.com')) {
+      console.error('RECOMMENDATION: iCloud users should check their Junk folder and add onboarding@resend.dev to contacts');
+    }
+    
     throw error;
   }
 }
