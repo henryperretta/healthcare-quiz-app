@@ -119,10 +119,15 @@ export async function sendQuizResults(results: QuizResults): Promise<void> {
     console.log('To:', results.email);
     
     const result = await resend.emails.send({
-      from: process.env.FROM_EMAIL || 'onboarding@resend.dev',
+      from: process.env.FROM_EMAIL || 'C.R.A.P. Healthcare Quiz <onboarding@resend.dev>',
       to: results.email,
-      subject: `Your Healthcare Quiz Results - ${results.percentage}% Score`,
+      subject: `Your C.R.A.P. Healthcare Quiz Results - ${results.percentage}% Score`,
       html: emailHtml,
+      text: createPlainTextVersion(results),
+      headers: {
+        'X-Entity-Ref-ID': `quiz-results-${results.session_id}`,
+        'List-Unsubscribe': '<mailto:unsubscribe@resend.dev>',
+      },
     });
 
     console.log('Resend API response:', result);
@@ -140,4 +145,38 @@ function getScoreMessage(percentage: number): string {
   if (percentage >= 70) return 'Good work! You have a solid foundation.';
   if (percentage >= 60) return 'Not bad! Consider reviewing some healthcare topics.';
   return 'Keep learning! Healthcare knowledge is important for everyone.';
+}
+
+function createPlainTextVersion(results: QuizResults): string {
+  const scoreMessage = getScoreMessage(results.percentage);
+  
+  return `
+C.R.A.P. HEALTHCARE QUIZ RESULTS
+================================
+
+Your Score: ${results.percentage}% (${results.correct_answers} out of ${results.total_questions} correct)
+${scoreMessage}
+
+QUESTION REVIEW
+===============
+
+${results.responses.map((response, index) => `
+Question ${index + 1}: ${response.is_correct ? 'CORRECT ✓' : 'INCORRECT ✗'}
+
+Q: ${response.question}
+
+Your answer: ${response.selected_answer}
+
+Explanation: ${response.explanation}
+
+Source: ${response.article_title}${response.article_url ? ` - ${response.article_url}` : ''}
+
+`).join('\n')}
+
+Thank you for taking the C.R.A.P. Healthcare Quiz!
+Visit ${process.env.NEXT_PUBLIC_APP_URL || 'https://healthcare-quiz-app.vercel.app'} to take another quiz.
+
+This email was sent because you requested your quiz results.
+Healthcare Quiz App - Improving health literacy one question at a time.
+`.trim();
 }
