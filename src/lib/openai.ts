@@ -28,7 +28,10 @@ Output the response in this exact JSON schema only:
   }]
 }
 
-IMPORTANT: The answer_index should be 0, 1, 2, or 3 corresponding to the correct choice. Vary this randomly across questions - do not always use the same index.`;
+IMPORTANT: The answer_index should be 0, 1, 2, or 3 corresponding to the correct choice. 
+- RANDOMLY vary this across questions - sometimes 0, sometimes 1, sometimes 2, sometimes 3
+- DO NOT always use index 2 or any single index
+- Distribute correct answers evenly across all four positions`;
 
 export const MCQ_VERIFICATION_PROMPT = `You are reviewing healthcare MCQs for quality and accuracy. Verify that:
 

@@ -78,9 +78,15 @@ export async function POST(request: NextRequest) {
           throw questionError;
         }
         
-        // Randomize choice order to eliminate position bias
+        // Randomize choice order to eliminate position bias using Fisher-Yates shuffle
         const correctChoiceText = mcq.choices[mcq.answer_index];
-        const shuffledChoices = [...mcq.choices].sort(() => Math.random() - 0.5);
+        const shuffledChoices = [...mcq.choices];
+        
+        // Fisher-Yates shuffle for proper randomization
+        for (let i = shuffledChoices.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [shuffledChoices[i], shuffledChoices[j]] = [shuffledChoices[j], shuffledChoices[i]];
+        }
         
         const choices = shuffledChoices.map((choiceText: string, index: number) => ({
           question_id: question.id,
@@ -90,8 +96,9 @@ export async function POST(request: NextRequest) {
         }));
         
         console.log(`Question: ${mcq.prompt.substring(0, 50)}...`);
-        console.log(`Original correct choice (index ${mcq.answer_index}): ${correctChoiceText}`);
-        console.log(`New correct choice position: ${choices.findIndex(c => c.is_correct)}`);
+        console.log(`AI generated answer_index: ${mcq.answer_index}`);
+        console.log(`Original correct choice: ${correctChoiceText}`);
+        console.log(`After shuffle, new correct position: ${choices.findIndex(c => c.is_correct)}`);
         
         const { error: choicesError } = await supabaseAdmin
           .from('choices')
