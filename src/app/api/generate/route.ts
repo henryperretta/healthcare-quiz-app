@@ -78,13 +78,20 @@ export async function POST(request: NextRequest) {
           throw questionError;
         }
         
-        // Insert choices
-        const choices = mcq.choices.map((choiceText: string, index: number) => ({
+        // Randomize choice order to eliminate position bias
+        const correctChoiceText = mcq.choices[mcq.answer_index];
+        const shuffledChoices = [...mcq.choices].sort(() => Math.random() - 0.5);
+        
+        const choices = shuffledChoices.map((choiceText: string, index: number) => ({
           question_id: question.id,
           text: choiceText,
-          is_correct: index === mcq.answer_index,
+          is_correct: choiceText === correctChoiceText,
           order_index: index
         }));
+        
+        console.log(`Question: ${mcq.prompt.substring(0, 50)}...`);
+        console.log(`Original correct choice (index ${mcq.answer_index}): ${correctChoiceText}`);
+        console.log(`New correct choice position: ${choices.findIndex(c => c.is_correct)}`);
         
         const { error: choicesError } = await supabaseAdmin
           .from('choices')

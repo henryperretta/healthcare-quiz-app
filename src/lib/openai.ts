@@ -21,12 +21,14 @@ Output the response in this exact JSON schema only:
   "article_url": "<string>",
   "questions": [{
     "prompt": "<single clear question>",
-    "choices": ["A", "B", "C", "D"],
-    "answer_index": 2,
+    "choices": ["Choice A text", "Choice B text", "Choice C text", "Choice D text"],
+    "answer_index": 0,
     "explanation": "Why the correct answer is correct, 1–2 sentences",
     "source_quote": "Short quote or section reference"
   }]
-}`;
+}
+
+IMPORTANT: The answer_index should be 0, 1, 2, or 3 corresponding to the correct choice. Vary this randomly across questions - do not always use the same index.`;
 
 export const MCQ_VERIFICATION_PROMPT = `You are reviewing healthcare MCQs for quality and accuracy. Verify that:
 
