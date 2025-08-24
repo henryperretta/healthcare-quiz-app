@@ -96,12 +96,8 @@ export async function sendQuizResults(results: QuizResults): Promise<void> {
       <div style="text-align: center; padding: 20px; background: #F3F4F6; border-radius: 8px; margin-bottom: 20px;">
         <h3 style="color: #1F2937; margin-bottom: 15px;">Keep Learning!</h3>
         <p style="color: #6B7280; margin-bottom: 15px;">
-          Want to improve your healthcare knowledge? Take another quiz or explore our resources.
+          Want to improve your healthcare knowledge? Look for future C.R.A.P. quizzes!
         </p>
-        <a href="${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}" 
-           style="display: inline-block; background: #3B82F6; color: white; padding: 10px 20px; text-decoration: none; border-radius: 6px; font-weight: 500;">
-          Take Another Quiz
-        </a>
       </div>
 
       <div style="text-align: center; color: #9CA3AF; font-size: 14px;">
