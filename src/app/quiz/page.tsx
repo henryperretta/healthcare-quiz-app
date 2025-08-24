@@ -207,6 +207,7 @@ export default function QuizPage() {
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="text-blue-800 hover:text-blue-900 underline ml-1"
+                      title="Note: Some article links may no longer be available due to site changes or archiving"
                     >
                       {currentQuestion.article_title || 'Unknown Article'}
                     </a>

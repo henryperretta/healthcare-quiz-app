@@ -266,6 +266,7 @@ function ResultsPageContent() {
                           target="_blank" 
                           rel="noopener noreferrer"
                           className="text-blue-600 hover:text-blue-800 underline"
+                          title="Note: Some article links may no longer be available due to site changes or archiving"
                         >
                           {response.article_title}
                         </a>
@@ -277,6 +278,14 @@ function ResultsPageContent() {
                   
                 </div>
               ))}
+            </div>
+            
+            {/* Article Link Disclaimer */}
+            <div className="mt-6 p-3 bg-gray-50 border-l-4 border-gray-400 rounded-r-lg">
+              <p className="text-xs text-gray-600">
+                <strong>Note about source links:</strong> Some article links may no longer work due to news sites moving, archiving, or updating their content. 
+                The quiz questions were created from the original articles when they were accessible.
+              </p>
             </div>
           </div>
 
